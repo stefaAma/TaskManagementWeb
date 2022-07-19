@@ -39,5 +39,10 @@ namespace TaskManagement.Services
 
             return true;
         }
+
+        public async Task Logout(HttpContext httpContext)
+        {
+            await httpContext.SignOutAsync(Constant.AuthenticationScheme);
+        }
     }
 }

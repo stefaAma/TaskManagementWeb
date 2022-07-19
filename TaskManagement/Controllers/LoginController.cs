@@ -24,8 +24,14 @@ namespace TaskManagement.Controllers
         public async Task<IActionResult> Index(Credentials credentials)
         {
             if(!ModelState.IsValid || ! await LoginService.Login(credentials, HttpContext))
-                return View();
+                return View(credentials);
 
+            return Redirect("/Home");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await LoginService.Logout(HttpContext);
             return Redirect("/Home");
         }
     }

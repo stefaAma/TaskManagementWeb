@@ -6,17 +6,17 @@ using TaskManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddControllersWithViews();
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<TaskManagementContext>(options => options.UseNpgsql(
+builder.Services.AddDbContext<TaskManagementContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString(Constant.PostreConnectionString)));
 // Authentication setup
 builder.Services.AddAuthentication(Constant.AuthenticationScheme).AddCookie(Constant.AuthenticationScheme,
     options =>
     {
-        options.Cookie.Name = Constant.AuthenticationScheme;
+        options.Cookie.Name = Constant.CookieName;
     });
-builder.Services.AddSingleton<ILoginService, LoginService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 var app = builder.Build();
 

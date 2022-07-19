@@ -1,0 +1,16 @@
+﻿@using System.Security.Claims;
+
+@if (User.Identity.IsAuthenticated)
+{
+    Claim claim = User.Claims.Where(c => c.Type == ClaimTypes.Role).FirstOrDefault();
+    string Role = "Default";
+    if (claim != null)
+        Role = claim.Value;
+
+    <div>
+        Welcome @User.Identity.Name | @Role | <a class="btn btn-danger" asp-controller="Login" asp-action="Logout">Logout</a>
+    </div>
+}
+else {
+    <a class="btn btn-success" asp-controller="Login" asp-action="Index">Login</a>
+}
