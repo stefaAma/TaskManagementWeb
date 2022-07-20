@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TaskManagement.Data.StaticData;
 using TaskManagement.IServices;
 using TaskManagement.Services;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,23 @@ builder.Services.AddAuthentication(Constant.AuthenticationScheme).AddCookie(Cons
     options =>
     {
         options.Cookie.Name = Constant.CookieName;
+        options.LoginPath = "/Login";
+        options.AccessDeniedPath = "/Login/AccessDenied";
     });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminAccount", 
+        policy => { 
+            policy.RequireClaim(ClaimTypes.Role, "Admin"); 
+        });
+    options.AddPolicy("BasicUserAccount",
+        policy => {
+            policy.RequireClaim(ClaimTypes.Role, new string[2] {
+                "Admin",
+                "Normal User"
+            });
+        });
+});
 builder.Services.AddScoped<ILoginService, LoginService>();
 
 var app = builder.Build();

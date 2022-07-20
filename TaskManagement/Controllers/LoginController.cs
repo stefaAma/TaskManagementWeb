@@ -17,6 +17,9 @@ namespace TaskManagement.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            string? AccessDeniedError = TempData["Access Denied"] as string;
+            if (AccessDeniedError != null)
+                ModelState.AddModelError("", AccessDeniedError);
             return View();
         }
 
@@ -24,7 +27,10 @@ namespace TaskManagement.Controllers
         public async Task<IActionResult> Index(Credentials credentials)
         {
             if(!ModelState.IsValid || ! await LoginService.Login(credentials, HttpContext))
+            {
+                ModelState.AddModelError("", "Username or Password are not correct!");
                 return View(credentials);
+            }
 
             return Redirect("/Home");
         }
@@ -33,6 +39,13 @@ namespace TaskManagement.Controllers
         {
             await LoginService.Logout(HttpContext);
             return Redirect("/Home");
+        }
+
+        public async Task<IActionResult> AccessDenied()
+        {
+            await LoginService.Logout(HttpContext);
+            TempData["Access Denied"] = "Access Denied!";
+            return RedirectToAction("Index");
         }
     }
 }
