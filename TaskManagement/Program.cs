@@ -23,7 +23,8 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminAccount", 
         policy => { 
-            policy.RequireClaim(ClaimTypes.Role, "Admin"); 
+            policy.RequireClaim(ClaimTypes.Role, "Admin");
+            policy.RequireClaim(ClaimTypes.Name);
         });
     options.AddPolicy("BasicUserAccount",
         policy => {
@@ -31,9 +32,11 @@ builder.Services.AddAuthorization(options =>
                 "Admin",
                 "Normal User"
             });
+            policy.RequireClaim(ClaimTypes.Name);
         });
 });
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IDailyTasksService, DailyTasksService>();
 
 var app = builder.Build();
 

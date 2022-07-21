@@ -1,0 +1,22 @@
+﻿@* Navigation links displayed based on the user role *@
+
+@using System.Security.Claims;
+
+@if(User.Identity.IsAuthenticated) {
+    Claim claim = User.Claims.Where(c => c.Type == ClaimTypes.Role).FirstOrDefault();
+    string Role = "Default";
+    if (claim != null)
+        Role = claim.Value;
+    if (Role == "Normal User" || Role == "Admin")
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" onclick="viewDailyTasks(event)">Daily Tasks</a>
+        </li>
+    }
+    if (Role == "Admin")
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="TaskCategories" asp-action="Index">Task Categories</a>
+        </li>
+    }
+}
