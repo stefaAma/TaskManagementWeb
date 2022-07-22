@@ -9,7 +9,7 @@ namespace TaskManagement.Models
         [Required]
         public string Name { get; set; } = "";
         [Required]
-        public DateTime Date { get; set; }
+        public string Date { get; set; } = "";
         public string? Description { get; set; }
         [Required]
         public int Duration { get; set; }

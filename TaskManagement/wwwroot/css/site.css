@@ -16,3 +16,41 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.parent {
+    height: 150px;
+    width: 150px;
+    background-color: rgba(255,0,0,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.child {
+    height: 120px;
+    width: 120px;
+    background-color: rgba(255,255,255, 1);
+    border-radius: 50%;
+    position: relative;
+}
+
+.child::before {
+    content: attr(data-percentage);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+}
+
+report-title {
+    border-bottom: 1px solid rgba(255,0,0,0.5);
+    display: inline;
+    padding-bottom: 5px;
+}
+
+.title-container {
+    margin-top: 10px;
+    text-align: center;
+}

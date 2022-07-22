@@ -11,7 +11,7 @@ namespace TaskManagement.Models
         [Required]
         public float Effort { get; set; }
         [Required]
-        public string HexColor { get; set; }
+        public string RgbaColor { get; set; }
 
         public ICollection<DailyTask> DailyTasks;
     }
