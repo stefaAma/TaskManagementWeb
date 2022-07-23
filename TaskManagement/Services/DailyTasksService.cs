@@ -45,8 +45,8 @@ namespace TaskManagement.Services
 
                 if (task.IsCompleted)
                     report.PercentageCompletion++;
-
-                report.TotalEffort = report.TotalEffort + (task.Duration * (task.Effort + task.Category.Effort - 1));
+                else
+                    report.TotalEffort = report.TotalEffort + (task.Duration * (task.Effort + task.Category.Effort - 1));
             }
             int tasksNum = tasks.Count();
             foreach (var category in report.Categories)

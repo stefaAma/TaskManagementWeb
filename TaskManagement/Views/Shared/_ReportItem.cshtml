@@ -1,0 +1,54 @@
+﻿@using TaskManagement.ViewModels.DailyTasks
+
+@{
+    Report report = ViewData["report"] as Report;
+    string reportTitle = ViewData["report-title"] as string;
+    string reportType = ViewData["report-type"] as string;
+    string rgbaColor = ViewData["RgbaColor"] as string;
+    if (report == null)
+        throw new Exception("Report is null but there are values in the Model");
+}
+
+@if(reportType.Equals("totalEffort"))
+{
+    string effort = report.TotalEffort + "/" + "18";
+
+    <div class="mt-4 report-item">
+        <div class="parent" style="background-color: @rgbaColor">
+            <div class="child" data-percentage="@effort"></div>
+        </div>
+        <div class="title-container">
+            <h2 class="report-title" style="border-bottom: 2px solid @rgbaColor">@reportTitle</h2>
+        </div>
+        <div class="text-danger mt-2" asp-validation-summary="ModelOnly"></div>
+    </div>
+}
+else if(reportType.Equals("completionPercentage"))
+{
+    string percentageCompletion = report.PercentageCompletion.ToString();
+
+    <div class="mt-4 report-item">
+        <div class="parent" style="background-color: @rgbaColor">
+            <div class="child" data-percentage="@percentageCompletion"></div>
+        </div>
+        <div class="title-container">
+            <h2 class="report-title" style="border-bottom: 2px solid @rgbaColor">@reportTitle</h2>
+        </div>
+    </div>
+}
+else if(reportType.Equals("category"))
+{
+    string categoryPercentage = ViewData["category-percentage"] as string;
+
+    <div class="mt-4 report-item">
+        <div class="parent" style="background-color: @rgbaColor">
+            <div class="child" data-percentage="@categoryPercentage"></div>
+        </div>
+        <div class="title-container">
+            <h2 class="report-title" style="border-bottom: 2px solid @rgbaColor">@reportTitle</h2>
+        </div>
+    </div>
+}
+else {
+    <p class="text-danger">Something's wrong, report type unknown</p>
+}

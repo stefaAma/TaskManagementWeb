@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagement.IServices;
+using TaskManagement.ViewModels.DailyTasks;
 
 namespace TaskManagement.Controllers
 {
@@ -19,10 +20,12 @@ namespace TaskManagement.Controllers
         {
             var dailyTasks = await DailyTasksService.GetTasksByUserAndDate(User.Identity.Name, date);
             // manage the case in which there are no daily tasks!
-            var report = DailyTasksService.GenerateReport(dailyTasks);
+            Report? report = null;
+            if(dailyTasks != null && dailyTasks.Count() > 0)
+                report = DailyTasksService.GenerateReport(dailyTasks);
             ViewData["date"] = date;
             ViewData["report"] = report;
-            if (report.TotalEffort > 18)
+            if (report != null && report.TotalEffort > 18)
             {
                 ModelState.AddModelError("", "Too much effort, please remove one or more tasks!");
             }
