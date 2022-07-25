@@ -58,5 +58,20 @@ namespace TaskManagement.Services
             return report;
         }
 
+        public async Task<bool> CreateTask(DailyTask task, string username)
+        {
+            if (task == null || string.IsNullOrEmpty(task.Name) || task.Duration < 1 ||
+                task.Duration > 4 || (task.Effort != 1 && task.Effort != 1.5 && task.Effort != 2)) 
+                return false;
+            User? user = await TaskManagementContext.Users.Where(u => u.Username == username)
+                .FirstOrDefaultAsync();
+            task.User = user;
+            TaskManagementContext.DailyTasks.Add(task);
+            int changes = await TaskManagementContext.SaveChangesAsync();
+            if (changes != 1)
+                return false;
+            return true;
+        }
+
     }
 }

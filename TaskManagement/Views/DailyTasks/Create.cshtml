@@ -1,0 +1,83 @@
+﻿@*
+    Page for task creation
+*@
+@model DailyTask
+@{
+    string date = ViewData["date"] as string;
+    IEnumerable<TaskCategory> categories = ViewData["categories"] as IEnumerable<TaskCategory>;
+}
+
+<div class="container">
+    <h1 class="mb-2">Create your Task | @date</h1>
+    <form method="post">
+        @*hidden fields*@
+        <input hidden asp-for="Date" value="@date" />
+        <input hidden asp-for="IsCompleted" value="false" />
+        <input hidden asp-for="Id" value="null" />
+        @*visible fields*@
+        <div class="row align-items-center">
+            <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="Name"></label>
+            <div class="col-sm-8">
+                <input class="m-2 form-control" asp-for="Name" />
+            </div>
+        </div>
+        <div class="mb-2">
+            <span class="text-danger" asp-validation-for="Name"></span>
+        </div>
+        <div class="row align-items-center">
+            <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="Description"></label>
+            <div class="col-sm-8">
+                <textarea class="m-2 form-control" asp-for="Description" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="mb-2">
+            <span class="text-danger" asp-validation-for="Description"></span>
+        </div>
+        <div class="row align-items-center">
+            <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="Duration"></label>
+            <div class="col-sm-8">
+                <input class="m-2 form-control" asp-for="Duration" min="1" max="4" step="1" />
+            </div>
+        </div>
+        <div class="mb-2">
+            <span class="text-danger" asp-validation-for="Duration"></span>
+        </div>
+        <div class="row align-items-center">
+            <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="Effort"></label>
+            <div class="col-sm-8">
+                <select class="m-2 form-control text-center" asp-for="Effort">
+                    <option value="">-- Select an option --</option>
+                    <option value="1">Low</option>
+                    <option value="1.5">Medium</option>
+                    <option value="2">High</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-2">
+            <span class="text-danger" asp-validation-for="Effort"></span>
+        </div>
+        <div class="row align-items-center">
+            <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="CategoryId"></label>
+            <div class="col-sm-8">
+                <select class="m-2 form-control text-center" asp-for="CategoryId" >
+                    <option class="p-2" value="">-- Select an option --</option>
+                    @foreach(var category in categories)
+                    {
+                        <option class="p-2" value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="mb-2">
+            <span class="text-danger" asp-validation-for="CategoryId"></span>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <button id="back-button" data-date="@date" onclick="backToTasksList()" class="btn btn-secondary me-2">Back To List</button>
+            <button class="btn btn-success ms-2" type="submit" asp-controller="DailyTasks" asp-action="Create">Submit</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

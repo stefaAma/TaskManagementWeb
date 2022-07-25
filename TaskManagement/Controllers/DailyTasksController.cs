@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagement.IServices;
+using TaskManagement.Models;
 using TaskManagement.ViewModels.DailyTasks;
 
 namespace TaskManagement.Controllers
@@ -10,10 +11,12 @@ namespace TaskManagement.Controllers
     {
 
         private IDailyTasksService DailyTasksService { get; set; }
+        private ITaskCategoriesService TaskCategoriesService { get; set; }
 
-        public DailyTasksController(IDailyTasksService dailyTasksService)
+        public DailyTasksController(IDailyTasksService dailyTasksService, ITaskCategoriesService taskCategoriesService)
         {
             DailyTasksService = dailyTasksService;
+            TaskCategoriesService = taskCategoriesService;
         }
 
         public async Task<IActionResult> Index(string date)
@@ -31,6 +34,21 @@ namespace TaskManagement.Controllers
             }
                 
             return View(dailyTasks);
+        }
+
+        public async Task<IActionResult> Create(string date)
+        {
+            ViewData["date"] = date;
+            ViewData["categories"] = await TaskCategoriesService.GetCategories();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(DailyTask dailyTask)
+        {
+            if (!await DailyTasksService.CreateTask(dailyTask, User.Identity.Name))
+                return BadRequest();
+            return RedirectToAction("Index", new {date = dailyTask.Date});
         }
     }
 }

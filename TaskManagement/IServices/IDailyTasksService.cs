@@ -7,5 +7,6 @@ namespace TaskManagement.IServices
     {
         public Task<IEnumerable<DailyTask>> GetTasksByUserAndDate(string username, string date);
         public Report GenerateReport(IEnumerable<DailyTask> tasks);
+        public Task<bool> CreateTask(DailyTask task, string username);
     }
 }

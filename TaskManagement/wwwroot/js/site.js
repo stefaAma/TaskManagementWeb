@@ -19,3 +19,13 @@ function viewDailyTasks(event) {
     let dateString = date.getFullYear().toString() + "-" + monthString + "-" + date.getDate().toString()
     location.href = "/DailyTasks?date=" + dateString
 }
+
+function backToTasksList() {
+    let date = document.getElementById("back-button").getAttribute("data-date")
+    location.href = "/DailyTasks?date=" + date
+}
+
+function goToCreatePage() {
+    let date = document.getElementById("back-button").getAttribute("data-date")
+    location.href = "/DailyTasks/Create?date=" + date
+}

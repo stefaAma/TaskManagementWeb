@@ -37,6 +37,7 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IDailyTasksService, DailyTasksService>();
+builder.Services.AddScoped<ITaskCategoriesService, TaskCategoriesService>();
 
 var app = builder.Build();
 
