@@ -16,7 +16,10 @@ namespace TaskManagement.Services
 
         public async Task<IEnumerable<TaskCategory>> GetCategories()
         {
-            return await TaskManagementContext.TaskCategories.ToListAsync();
+            return await TaskManagementContext
+                .TaskCategories
+                .OrderBy(tc => tc.Name) 
+                .ToListAsync();
         }
     }
 }

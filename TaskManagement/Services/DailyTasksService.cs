@@ -46,7 +46,7 @@ namespace TaskManagement.Services
                 if (task.IsCompleted)
                     report.PercentageCompletion++;
                 else
-                    report.TotalEffort = report.TotalEffort + (task.Duration * (task.Effort + task.Category.Effort - 1));
+                    report.TotalEffort = TotalEffortExpression(report.TotalEffort, task);
             }
             int tasksNum = tasks.Count();
             foreach (var category in report.Categories)
@@ -60,13 +60,72 @@ namespace TaskManagement.Services
 
         public async Task<bool> CreateTask(DailyTask task, string username)
         {
-            if (task == null || string.IsNullOrEmpty(task.Name) || task.Duration < 1 ||
-                task.Duration > 4 || (task.Effort != 1 && task.Effort != 1.5 && task.Effort != 2)) 
+            if (!CheckTaskValues(task)) 
                 return false;
             User? user = await TaskManagementContext.Users.Where(u => u.Username == username)
                 .FirstOrDefaultAsync();
             task.User = user;
             TaskManagementContext.DailyTasks.Add(task);
+            int changes = await TaskManagementContext.SaveChangesAsync();
+            if (changes != 1)
+                return false;
+            return true;
+        }
+
+        private float TotalEffortExpression(float totalEffort, DailyTask task)
+        {
+            if (task.Category == null)
+                task.Category = TaskManagementContext.TaskCategories.Find(task.CategoryId);
+            return totalEffort + (task.Duration * (task.Effort + task.Category.Effort - 1));
+        }
+
+        public bool CheckTotalEffortOverflow(IEnumerable<DailyTask> tasks)
+        {
+            bool overflow = false;
+            float totalEffort = 0;
+            foreach (var task in tasks)
+            {
+                totalEffort = TotalEffortExpression(totalEffort, task);
+                if (totalEffort > 18)
+                    overflow = true;
+            }
+            return overflow;
+        }
+
+        public async Task<DailyTask> GetTaskById(Guid id)
+        {
+            var dailyTask = await TaskManagementContext.DailyTasks.FindAsync(id);
+            if (dailyTask == null)
+                throw new KeyNotFoundException("Task cannot be found!");
+            return dailyTask;
+        }
+
+        public IEnumerable<DailyTask> ReplaceTask(IEnumerable<DailyTask> dailyTasks, DailyTask dailyTask)
+        {
+            var tasksList = dailyTasks.ToList();
+            int id = tasksList.FindIndex(task => task.Id == dailyTask.Id);
+            tasksList.RemoveAt(id);
+            tasksList.Add(dailyTask);
+            return tasksList;
+        }
+
+        private bool CheckTaskValues(DailyTask task)
+        {
+            if (task == null || string.IsNullOrEmpty(task.Name) || task.Duration < 1 ||
+                task.Duration > 4 || (task.Effort != 1 && task.Effort != 1.5 && task.Effort != 2))
+                return false;
+            return true;
+        } 
+
+        public async Task<bool> EditTask(DailyTask task, string username)
+        {
+            if (!CheckTaskValues(task))
+                return false;
+            User? user = await TaskManagementContext.Users.Where(u => u.Username == username)
+                .FirstOrDefaultAsync();
+            task.User = user;
+            TaskManagementContext.Entry<DailyTask>(TaskManagementContext.DailyTasks.Find(task.Id)).State = EntityState.Detached;
+            TaskManagementContext.DailyTasks.Update(task);
             int changes = await TaskManagementContext.SaveChangesAsync();
             if (changes != 1)
                 return false;

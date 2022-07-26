@@ -1,20 +1,18 @@
 ﻿@*
-    Page for task creation
+    Page for task editing
 *@
 @model DailyTask
 @{
-    string date = ViewData["date"] as string;
     IEnumerable<TaskCategory> categories = ViewData["categories"] as IEnumerable<TaskCategory>;
 }
-
 <div class="container">
-    <h1 class="mb-2">Create your Task | @date</h1>
+    <h1 class="mb-2">Edit your Task | @Model.Date</h1>
     <form method="post">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         @*hidden fields*@
-        <input hidden asp-for="Date" value="@date" />
-        <input hidden asp-for="IsCompleted" value="false" />
-        <input hidden asp-for="Id" value="null" />
+        <input hidden asp-for="Date"/>
+        <input hidden asp-for="IsCompleted"/>
+        <input hidden asp-for="Id"/>
         @*visible fields*@
         <div class="row align-items-center">
             <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="Name"></label>
@@ -72,9 +70,19 @@
         <div class="mb-2">
             <span class="text-danger" asp-validation-for="CategoryId"></span>
         </div>
+        @*checkbox why creating such a shitty element :(*@
+        <div class="row align-items-center">
+            <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="IsCompleted" for="checkboxSelector">Completed</label>
+            <div class="form-check form-switch col-sm-8">
+                <input id="checkboxSelector" class="form-check-input" type="checkbox" asp-for="IsCompleted">
+            </div>
+        </div>
+        <div class="mb-2">
+            <span class="text-danger" asp-validation-for="IsCompleted"></span>
+        </div>
         <div class="d-flex align-items-center justify-content-center">
-            <button type="button" id="back-button" data-date="@date" onclick="backToTasksList()" class="btn btn-secondary me-2">Back To List</button>
-            <button class="btn btn-success ms-2" type="submit" asp-controller="DailyTasks" asp-action="Create">Submit</button>
+            <button type="button" id="back-button" data-date="@Model.Date" onclick="backToTasksList()" class="btn btn-secondary me-2">Back To List</button>
+            <button class="btn btn-success ms-2" type="submit" asp-controller="DailyTasks" asp-action="Edit">Submit</button>
         </div>
     </form>
 </div>

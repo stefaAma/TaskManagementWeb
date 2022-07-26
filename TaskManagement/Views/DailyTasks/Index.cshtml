@@ -36,6 +36,7 @@
                     <th scope="col">
                         Description
                     </th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -80,6 +81,11 @@
                             {
                                 <p style="margin-top: 1rem;">@dailyTask.Description</p>
                             }
+                        </td>
+                        <td style="background-color: @dailyTask.Category.RgbaColor">
+                            <form method="get">
+                                <button style="margin-top: 0.5rem; type="submit" class="btn btn-light" asp-controller="DailyTasks" asp-action="Edit" asp-route-id="@dailyTask.Id">Edit</button>
+                            </form>
                         </td>
                     </tr>
                 }
