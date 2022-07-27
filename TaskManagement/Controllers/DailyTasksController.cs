@@ -88,5 +88,21 @@ namespace TaskManagement.Controllers
             return RedirectToAction("Index", new { date = dailyTask.Date });
         }
 
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            var dailyTask = await DailyTasksService.GetTaskById(Id);
+            ViewData["categories"] = await TaskCategoriesService.GetCategories();
+            return View(dailyTask);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeletePost(Guid Id)
+        {
+            var dailyTask = await DailyTasksService.GetTaskById(Id);
+            if (!await DailyTasksService.DeleteTask(dailyTask))
+                return BadRequest();
+            return RedirectToAction("Index", new { date = dailyTask.Date });
+        }
     }
 }

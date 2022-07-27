@@ -132,5 +132,14 @@ namespace TaskManagement.Services
             return true;
         }
 
+        public async Task<bool> DeleteTask(DailyTask task)
+        {
+            TaskManagementContext.DailyTasks.Remove(task);
+            int changes = await TaskManagementContext.SaveChangesAsync();
+            if (changes != 1)
+                return false;
+            return true;
+        }
+
     }
 }

@@ -12,5 +12,6 @@ namespace TaskManagement.IServices
         public Task<DailyTask> GetTaskById(Guid id);
         public IEnumerable<DailyTask> ReplaceTask(IEnumerable<DailyTask> dailyTasks, DailyTask dailyTask);
         public Task<bool> EditTask(DailyTask task, string username);
+        public Task<bool> DeleteTask(DailyTask task);
     }
 }

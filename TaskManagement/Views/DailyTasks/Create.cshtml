@@ -46,7 +46,7 @@
         <div class="row align-items-center">
             <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="Effort"></label>
             <div class="col-sm-8">
-                <select class="m-2 form-control text-center" asp-for="Effort">
+                <select class="m-2 form-control text-center" asp-for="Effort" style="cursor: pointer;" >
                     <option value="">-- Select an option --</option>
                     <option value="1">Low</option>
                     <option value="1.5">Medium</option>
@@ -60,7 +60,7 @@
         <div class="row align-items-center">
             <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="CategoryId"></label>
             <div class="col-sm-8">
-                <select class="m-2 form-control text-center" asp-for="CategoryId" >
+                <select class="m-2 form-control text-center" asp-for="CategoryId" style="cursor: pointer;" >
                     <option class="p-2" value="">-- Select an option --</option>
                     @foreach(var category in categories)
                     {

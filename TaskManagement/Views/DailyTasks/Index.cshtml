@@ -37,6 +37,7 @@
                         Description
                     </th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -84,7 +85,12 @@
                         </td>
                         <td style="background-color: @dailyTask.Category.RgbaColor">
                             <form method="get">
-                                <button style="margin-top: 0.5rem; type="submit" class="btn btn-light" asp-controller="DailyTasks" asp-action="Edit" asp-route-id="@dailyTask.Id">Edit</button>
+                                <button style="margin-top: 0.5rem;" type="submit" class="btn btn-light" asp-controller="DailyTasks" asp-action="Edit" asp-route-id="@dailyTask.Id">Edit</button>
+                            </form>
+                        </td>
+                        <td style="background-color: @dailyTask.Category.RgbaColor">
+                            <form method="get">
+                                <button style="margin-top: 0.5rem;" type="submit" class="btn btn-light" asp-controller="DailyTasks" asp-action="Delete" asp-route-id="@dailyTask.Id">Delete</button>
                             </form>
                         </td>
                     </tr>

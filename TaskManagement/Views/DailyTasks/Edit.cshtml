@@ -11,7 +11,6 @@
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         @*hidden fields*@
         <input hidden asp-for="Date"/>
-        <input hidden asp-for="IsCompleted"/>
         <input hidden asp-for="Id"/>
         @*visible fields*@
         <div class="row align-items-center">
@@ -44,7 +43,7 @@
         <div class="row align-items-center">
             <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="Effort"></label>
             <div class="col-sm-8">
-                <select class="m-2 form-control text-center" asp-for="Effort">
+                <select class="m-2 form-control text-center" asp-for="Effort" style="cursor: pointer;" >
                     <option value="">-- Select an option --</option>
                     <option value="1">Low</option>
                     <option value="1.5">Medium</option>
@@ -58,7 +57,7 @@
         <div class="row align-items-center">
             <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="CategoryId"></label>
             <div class="col-sm-8">
-                <select class="m-2 form-control text-center" asp-for="CategoryId" >
+                <select class="m-2 form-control text-center" asp-for="CategoryId" style="cursor: pointer;" >
                     <option class="p-2" value="">-- Select an option --</option>
                     @foreach(var category in categories)
                     {
@@ -70,11 +69,11 @@
         <div class="mb-2">
             <span class="text-danger" asp-validation-for="CategoryId"></span>
         </div>
-        @*checkbox why creating such a shitty element :(*@
         <div class="row align-items-center">
-            <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="IsCompleted" for="checkboxSelector">Completed</label>
+            <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="IsCompleted">Completed</label>
             <div class="form-check form-switch col-sm-8">
-                <input id="checkboxSelector" class="form-check-input" type="checkbox" asp-for="IsCompleted">
+                @* <input id="IsCompleted" hidden checked name="IsCompleted" /> *@
+                <input class="form-check-input" asp-for="IsCompleted" style="transform: translateX(75%) scale(1.5); cursor:pointer;" />
             </div>
         </div>
         <div class="mb-2">

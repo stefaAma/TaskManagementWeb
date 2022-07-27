@@ -1,0 +1,67 @@
+﻿@*
+    Read only page for viewing task info or delete it
+*@
+@model DailyTask
+@{
+    IEnumerable<TaskCategory> categories = ViewData["categories"] as IEnumerable<TaskCategory>;
+}
+<div class="container">
+    <h1 class="mb-2">Delete your Task | @Model.Date</h1>
+    <form method="post">
+        @*hidden fields*@
+        <input hidden asp-for="Id"/>
+        @*visible fields*@
+        <div class="row align-items-center mb-2">
+            <label class="col-sm-4 fw-bold" asp-for="Name"></label>
+            <div class="col-sm-8">
+                <input class="m-2 form-control" disabled asp-for="Name" />
+            </div>
+        </div>
+        <div class="row align-items-center mb-2">
+            <label class="col-sm-4 fw-bold" asp-for="Description"></label>
+            <div class="col-sm-8">
+                <textarea class="m-2 form-control" disabled asp-for="Description" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="row align-items-center mb-2">
+            <label class="col-sm-4 fw-bold" asp-for="Duration"></label>
+            <div class="col-sm-8">
+                <input class="m-2 form-control" disabled asp-for="Duration" min="1" max="4" step="1" />
+            </div>
+        </div>
+        <div class="row align-items-center mb-2">
+            <label class="col-sm-4 fw-bold" asp-for="Effort"></label>
+            <div class="col-sm-8">
+                <select class="m-2 form-control text-center" disabled asp-for="Effort" >
+                    <option value="">-- Select an option --</option>
+                    <option value="1">Low</option>
+                    <option value="1.5">Medium</option>
+                    <option value="2">High</option>
+                </select>
+            </div>
+        </div>
+        <div class="row align-items-center mb-2">
+            <label class="col-sm-4 fw-bold" asp-for="CategoryId"></label>
+            <div class="col-sm-8">
+                <select class="m-2 form-control text-center" disabled asp-for="CategoryId" >
+                    <option class="p-2" value="">-- Select an option --</option>
+                    @foreach(var category in categories)
+                    {
+                        <option class="p-2" value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row align-items-center mb-2">
+            <label class="col-sm-4 fw-bold" asp-for="IsCompleted">Completed</label>
+            <div class="form-check form-switch col-sm-8">
+                @* <input id="IsCompleted" hidden checked name="IsCompleted" /> *@
+                <input class="form-check-input" disabled asp-for="IsCompleted" style="transform: translateX(75%) scale(1.5);" />
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <button type="button" id="back-button" data-date="@Model.Date" onclick="backToTasksList()" class="btn btn-secondary me-2">Back To List</button>
+            <button class="btn btn-danger ms-2" type="submit" asp-controller="DailyTasks" asp-action="Delete">Delete</button>
+        </div>
+    </form>
+</div>
