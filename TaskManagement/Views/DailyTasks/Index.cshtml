@@ -43,15 +43,34 @@
             <tbody>
                 @foreach (var dailyTask in Model)
                 {
+                    @*mapping task effort*@
+                    string taskEffortString;
+                    if(dailyTask.Effort == 1)
+                    {
+                        taskEffortString = "Low";
+                    }
+                    else if (dailyTask.Effort == 1.5)
+                    {
+                        taskEffortString = "Medium";
+                    }
+                    else if (dailyTask.Effort == 2)
+                    {
+                        taskEffortString = "High";
+                    }
+                    else
+                    {
+                        taskEffortString = "Unknown";
+                    }
+
                     <tr>
                         <td class="position-relative" style="background-color: @dailyTask.Category.RgbaColor">
                             @if(dailyTask.IsCompleted)
                             {
-                                <i class="bi bi-check2 position-absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%)"></i>
+                                <i class="bi bi-check2 position-absolute text-success" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.5); border-bottom: 2px solid white;"></i>
                             }
                             else
                             {
-                                <i class="bi bi-x position-absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%)"></i>
+                                <i class="bi bi-x position-absolute text-danger" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.5); border-bottom: 2px solid white;"></i>
                             }
                         </td>
                         <td style="background-color: @dailyTask.Category.RgbaColor">
@@ -65,13 +84,13 @@
                             }
                         </td>
                         <td style="background-color: @dailyTask.Category.RgbaColor">
-                            <p style="margin-top: 1rem;">@dailyTask.Category.Name - @dailyTask.Category.Effort</p>
+                            <p style="margin-top: 1rem;">@dailyTask.Category.Name</p>
                         </td>
                         <td style="background-color: @dailyTask.Category.RgbaColor">
                             <p style="margin-top: 1rem;">@dailyTask.Duration</p>
                         </td>
                         <td style="background-color: @dailyTask.Category.RgbaColor">
-                            <p style="margin-top: 1rem;">@dailyTask.Effort</p>
+                            <p style="margin-top: 1rem;">@taskEffortString</p>
                         </td>
                         <td style="background-color: @dailyTask.Category.RgbaColor">
                             @if (dailyTask.Description?.Length > 15)

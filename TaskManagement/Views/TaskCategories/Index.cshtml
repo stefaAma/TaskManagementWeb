@@ -1,7 +1,81 @@
 ﻿@*
     Main page where task categories are showed
 *@
-@{
-}
+@model IEnumerable<TaskCategory>
 
-<h1>Task Categories</h1>
+<div class="container">
+    <h1 class="mb-2">Manage Task Categories</h1>
+    @if (Model.Count() > 0) {
+        @*render task categories*@
+        <table class="table table-borderless table-hover text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Effort</th>
+                    <th scope="col">Rgba Color</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var taskCategory in Model)
+                {
+                    string categoryEffortString = "";
+                    if (taskCategory.Effort == 1)
+                    {
+                        categoryEffortString = "Low";
+                    }
+                    else if (taskCategory.Effort == 1.25)
+                    {
+                        categoryEffortString = "Mid-Low";
+                    }
+                    else if (taskCategory.Effort == 1.5)
+                    {
+                        categoryEffortString = "Medium";
+                    }
+                    else if (taskCategory.Effort == 1.75)
+                    {
+                        categoryEffortString = "Mid-High";
+                    }
+                    else if (taskCategory.Effort == 2)
+                    {
+                        categoryEffortString = "High";
+                    }
+                    else
+                    {
+                        categoryEffortString = "Unknown";
+                    }
+
+                    <tr>
+                        <td style="background-color: @taskCategory.RgbaColor"><p style="margin-top: 1rem;">@taskCategory.Name</p></td>
+                        <td style="background-color: @taskCategory.RgbaColor"><p style="margin-top: 1rem;">@categoryEffortString</p></td>
+                        <td style="background-color: @taskCategory.RgbaColor"><p style="margin-top: 1rem;">@taskCategory.RgbaColor</p></td>
+                        <td style="background-color: @taskCategory.RgbaColor">
+                           
+                                <button style="margin-top: 0.5rem;" type="submit" class="btn btn-light">Edit</button>
+                            
+                        </td>
+                        <td style="background-color: @taskCategory.RgbaColor">
+                            
+                                <button style="margin-top: 0.5rem;" type="submit" class="btn btn-light">Delete</button>
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="mt-2 d-flex align-items-center justify-content-center">
+            <form method="get">
+                <button class="btn btn-success" asp-controller="TaskCategories" asp-action="Create">Create Category</button>
+            </form>
+        </div>
+    }
+    else {
+        <div class="d-flex align-items-center justify-content-start">
+            <p class="m-0">There aren't any categories created, please create them by pressing</p>
+            <form method="get">
+                <button class="btn btn-success" asp-controller="TaskCategories" asp-action="Create">Create Category</button>
+            </form>
+        </div>
+    }
+</div>

@@ -85,7 +85,8 @@ namespace TaskManagement.Services
             float totalEffort = 0;
             foreach (var task in tasks)
             {
-                totalEffort = TotalEffortExpression(totalEffort, task);
+                if(!task.IsCompleted)
+                    totalEffort = TotalEffortExpression(totalEffort, task);
                 if (totalEffort > 18)
                     overflow = true;
             }

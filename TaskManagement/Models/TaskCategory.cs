@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace TaskManagement.Models
 {
@@ -11,6 +12,7 @@ namespace TaskManagement.Models
         [Required]
         public float Effort { get; set; }
         [Required]
+        [DisplayName("Rgba Color")]
         public string RgbaColor { get; set; }
 
         public ICollection<DailyTask> DailyTasks;

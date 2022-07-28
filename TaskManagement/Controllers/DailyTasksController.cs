@@ -72,7 +72,7 @@ namespace TaskManagement.Controllers
         public async Task<IActionResult> Edit(DailyTask dailyTask)
         {
             var dailyTasks = await DailyTasksService.GetTasksByUserAndDate(User.Identity.Name, dailyTask.Date);
-            if (DailyTasksService.CheckTotalEffortOverflow(dailyTasks))
+            if (!dailyTask.IsCompleted && DailyTasksService.CheckTotalEffortOverflow(dailyTasks))
             {
                 var newDailyTasks = DailyTasksService.ReplaceTask(dailyTasks, dailyTask);
                 if (DailyTasksService.CheckTotalEffortOverflow(newDailyTasks))

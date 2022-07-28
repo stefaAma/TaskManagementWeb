@@ -21,5 +21,14 @@ namespace TaskManagement.Services
                 .OrderBy(tc => tc.Name) 
                 .ToListAsync();
         }
+
+        public async Task<bool> CreateTaskCategory(TaskCategory category)
+        {
+            if (category == null || string.IsNullOrEmpty(category.Name) 
+                || (category.Effort != 1 && category.Effort != 1.25 && category.Effort != 1.5
+                && category.Effort != 1.75 && category.Effort != 2))
+                return false;
+            // convert hex color to rgba format
+        }
     }
 }

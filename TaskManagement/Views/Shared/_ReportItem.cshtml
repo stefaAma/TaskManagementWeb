@@ -11,23 +11,32 @@
 
 @if(reportType.Equals("totalEffort"))
 {
-    string effort = report.TotalEffort + "/" + "18";
+    string totalEffortString = report.TotalEffort.ToString();
+    if (totalEffortString.Length > 4)
+    {
+        totalEffortString = totalEffortString.Substring(0, 4);
+    }
+    string effort = totalEffortString + "/" + "18";
 
-    <div class="mt-4 report-item">
+    <div class="m-4 report-item">
         <div class="parent" style="background-color: @rgbaColor">
             <div class="child" data-percentage="@effort"></div>
         </div>
         <div class="title-container">
             <h2 class="report-title" style="border-bottom: 2px solid @rgbaColor">@reportTitle</h2>
         </div>
-        <div class="text-danger mt-2" asp-validation-summary="ModelOnly"></div>
+        <div class="text-danger mt-3" asp-validation-summary="ModelOnly"></div>
     </div>
 }
 else if(reportType.Equals("completionPercentage"))
 {
     string percentageCompletion = report.PercentageCompletion.ToString();
+    if (percentageCompletion.Length > 4)
+    {
+        percentageCompletion = percentageCompletion.Substring(0, 4);
+    }
 
-    <div class="mt-4 report-item">
+    <div class="m-4 report-item">
         <div class="parent" style="background-color: @rgbaColor">
             <div class="child" data-percentage="@percentageCompletion"></div>
         </div>
@@ -39,8 +48,12 @@ else if(reportType.Equals("completionPercentage"))
 else if(reportType.Equals("category"))
 {
     string categoryPercentage = ViewData["category-percentage"] as string;
+    if (categoryPercentage.Length > 4)
+    {
+        categoryPercentage = categoryPercentage.Substring(0, 4);
+    }
 
-    <div class="mt-4 report-item">
+    <div class="m-4 report-item">
         <div class="parent" style="background-color: @rgbaColor">
             <div class="child" data-percentage="@categoryPercentage"></div>
         </div>

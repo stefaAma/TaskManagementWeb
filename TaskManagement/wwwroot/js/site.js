@@ -29,3 +29,12 @@ function goToCreatePage() {
     let date = document.getElementById("back-button").getAttribute("data-date")
     location.href = "/DailyTasks/Create?date=" + date
 }
+
+// To delete!
+function printColor(event) {
+    console.log(event.target.value)
+}
+
+function backToCategoryList() {
+    location.href = "/TaskCategories"
+}
