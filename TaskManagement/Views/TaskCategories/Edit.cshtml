@@ -1,13 +1,13 @@
 ﻿@*
-    Page for task category creation
+    Page for editing task categories
 *@
 @model TaskCategory
 
 <div class="container">
-    <h1 class="mb-2">Create Task Category</h1>
+    <h1 class="mb-2">Edit Task Category</h1>
     <form method="post">
         @*hidden fields*@
-        <input hidden asp-for="Id" value="null" />
+        <input hidden asp-for="Id" />
         @*visible fields*@
         <div class="row align-items-center">
             <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="Name"></label>
@@ -37,7 +37,7 @@
         <div class="row align-items-center">
             <label class="col-sm-4 fw-bold" style="cursor: pointer;" asp-for="RgbaColor"></label>
             <div class="col-sm-8">
-                <input type="color" class="form-control form-control-color" title="Choose your color" asp-for="RgbaColor" />
+                <input type="color" class="form-control form-control-color" style="transform: translate(8px, 0);" title="Choose your color" asp-for="RgbaColor" />
             </div>
         </div>
         <div class="mb-2">
@@ -45,7 +45,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-center">
             <button type="button" onclick="backToCategoryList()" class="btn btn-secondary me-2">Back To List</button>
-            <button class="btn btn-success ms-2" type="submit" asp-controller="TaskCategories" asp-action="Create">Submit</button>
+            <button class="btn btn-success ms-2" type="submit" asp-controller="TaskCategories" asp-action="Edit">Submit</button>
         </div>
     </form>
 </div>
