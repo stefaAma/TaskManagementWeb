@@ -7,27 +7,35 @@
     ViewData["Title"] = "Login Page";
 }
 
-<form method="post">
-    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-    <div class="row align-items-center">
-        <label class="col-sm-2 fw-bold" style="cursor: pointer;" asp-for="Username"></label> 
-        <div class="col-sm-10">
-            <input class="m-2 form-control" asp-for="Username" />
+<div class="container">
+    <h1 class="mb-2">Login</h1>
+    <h5 class="mb-4">Login with a Basic User or Admin account</h5>
+    <form method="post">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="row align-items-center">
+            <div class="col-sm-3 container d-flex flex-column align-items-center">
+                <label class="fw-bold" style="cursor: pointer;" asp-for="Username"></label>
+                <span class="text-danger" asp-validation-for="Username"></span>
+            </div> 
+            <div class="col-sm-9">
+                <input class="m-2 form-control" asp-for="Username" />
+            </div>
         </div>
-    </div>
-    <span class="text-danger" asp-validation-for="Username"></span>
-    <div class="row align-items-center">
-        <label class="col-sm-2 fw-bold" style="cursor: pointer;" asp-for="Password"></label> 
-        <div class="col-sm-10">
-            <input class="m-2 form-control" asp-for="Password" />
+        <div class="row align-items-center">
+            <div class="col-sm-3 container d-flex flex-column align-items-center">
+                <label class="fw-bold" style="cursor: pointer;" asp-for="Password"></label> 
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+            <div class="col-sm-9">
+                <input class="m-2 form-control" asp-for="Password" />
+            </div>
         </div>
-    </div>
-    <span class="text-danger" asp-validation-for="Password"></span>
-    <div class="d-flex align-items-center justify-content-center m-2">
-        <a class="btn btn-secondary me-2" asp-controller="Home">Back to Home Page</a>
-        <button class="btn btn-primary ms-2" type="submit">Submit</button>
-    </div>
-</form>
+        <div class="d-flex align-items-center justify-content-center m-2">
+            <a class="btn btn-secondary me-2" asp-controller="Home">Back to Home Page</a>
+            <button class="btn btn-success ms-2" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />

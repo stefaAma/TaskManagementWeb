@@ -4,6 +4,7 @@
 @using TaskManagement.ViewModels.TaskCategories
 @model IEnumerable<TaskCategory>
 @{
+    ViewData["Title"] = "Task Categories";
     Report report = ViewData["report"] as Report;
     string low = report.LowEffort.ToString();
     string medLow = report.MediumLowEffort.ToString();

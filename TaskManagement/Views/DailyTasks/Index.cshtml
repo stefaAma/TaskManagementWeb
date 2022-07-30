@@ -5,6 +5,7 @@
 @model IEnumerable<DailyTask>
 
 @{
+    ViewData["Title"] = "Daily Tasks";
     Report report = ViewData["report"] as Report;
     string date = ViewData["date"] as string;
 }

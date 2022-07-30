@@ -3,6 +3,7 @@
 *@
 @model DailyTask
 @{
+    ViewData["Title"] = "Create Task";
     string date = ViewData["date"] as string;
     IEnumerable<TaskCategory> categories = ViewData["categories"] as IEnumerable<TaskCategory>;
 }
