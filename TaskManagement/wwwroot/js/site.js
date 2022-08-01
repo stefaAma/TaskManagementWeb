@@ -16,7 +16,12 @@ function viewDailyTasks(event) {
         monthString = "0" + (date.getMonth() + 1).toString()
     else
         monthString = (date.getMonth() + 1).toString()
-    let dateString = date.getFullYear().toString() + "-" + monthString + "-" + date.getDate().toString()
+    let dayString = ""
+    if (date.getDate() < 10)
+        dayString = "0" + date.getDate().toString()
+    else
+        dayString = date.getDate().toString()
+    let dateString = date.getFullYear().toString() + "-" + monthString + "-" + dayString
     location.href = "/DailyTasks?date=" + dateString
 }
 

@@ -7,8 +7,9 @@
     if (claim != null)
         Role = claim.Value;
 
-    <div>
-        Welcome @User.Identity.Name | @Role | <a class="btn btn-danger" asp-controller="Login" asp-action="Logout">Logout</a>
+    <div class="d-flex align-items-center">
+        <strong>@User.Identity.Name (@Role)</strong>
+        <a class="btn btn-danger ms-2" asp-controller="Login" asp-action="Logout">Logout</a>
     </div>
 }
 else {

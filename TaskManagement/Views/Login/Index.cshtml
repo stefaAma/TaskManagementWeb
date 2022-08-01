@@ -9,7 +9,7 @@
 
 <div class="container">
     <h1 class="mb-2">Login</h1>
-    <h5 class="mb-4">Login with a Basic User or Admin account</h5>
+    <h6 class="mb-4">With a Basic User or Admin account</h6>
     <form method="post">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         <div class="row align-items-center">
@@ -27,7 +27,7 @@
                 <span class="text-danger" asp-validation-for="Password"></span>
             </div>
             <div class="col-sm-9">
-                <input class="m-2 form-control" asp-for="Password" />
+                <input class="m-2 form-control" type="password" asp-for="Password" />
             </div>
         </div>
         <div class="d-flex align-items-center justify-content-center m-2">
