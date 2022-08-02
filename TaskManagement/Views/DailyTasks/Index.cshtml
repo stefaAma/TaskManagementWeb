@@ -10,7 +10,7 @@
     string date = ViewData["date"] as string;
 }
 
-<div class="container">
+<div class="container daily-tasks-content">
     <h1 class="mb-2">Manage Your Daily Tasks</h1>
     <input id="datepicker" onchange="dateChanged()" class="form-control mb-3" type="date" style="cursor: pointer;" value="@date" />
     @if (Model != null && Model.Count() > 0)
@@ -157,7 +157,7 @@
     }
     else
     {
-        <div class="d-flex align-items-center justify-content-start">
+        <div class="d-flex align-items-center justify-content-start daily-tasks-content">
             <p class="m-0">There aren't any tasks planned for today, please create them by pressing</p>
             <button id="back-button" class="btn btn-success ms-2" data-date="@date" onclick="goToCreatePage()">Create Daily Task</button>
         </div>

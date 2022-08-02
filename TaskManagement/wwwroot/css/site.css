@@ -26,6 +26,24 @@ html {
     -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 }
 
+/*Media Query*/
+
+#warning-message {
+    display: none;
+}
+
+@media only screen and (orientation:portrait) and (max-width: 600px) {
+    #wrapper {
+        display: none;
+    }
+
+    #warning-message {
+        display: block;
+    }
+}
+
+/*Styling*/
+
 html {
   position: relative;
   min-height: 100%;
@@ -34,6 +52,7 @@ html {
 body {
     margin-bottom: 60px;
     font-family: "Open Sans", sans-serif;
+    overflow-x: hidden;
 }
 
 .parent {
@@ -75,4 +94,91 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/*Animations*/
+
+.first-section {
+    animation: fromRightAnimation 0.5s ease-out;
+}
+
+.third-section {
+    animation: fromRightAnimation 0.5s ease-out;
+}
+
+@keyframes fromRightAnimation {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+.second-section {
+    animation: fromLeftAnimation 0.5s ease-out;
+}
+
+@keyframes fromLeftAnimation {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+.daily-tasks-content {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.task-categories-content {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.privacy-content {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.login-content {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.create-task {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.edit-task {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.delete-task {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.create-category {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.edit-category {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.delete-category {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

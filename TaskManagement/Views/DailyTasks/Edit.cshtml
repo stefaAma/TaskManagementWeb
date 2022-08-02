@@ -6,7 +6,7 @@
     ViewData["Title"] = "Edit Task";
     IEnumerable<TaskCategory> categories = ViewData["categories"] as IEnumerable<TaskCategory>;
 }
-<div class="container">
+<div class="container edit-task">
     <h1 class="mb-2">Edit Your Task | @Model.Date</h1>
     <form method="post">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
